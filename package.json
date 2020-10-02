@@ -1,0 +1,74 @@
+{
+  "_args": [
+    [
+      "leaflet-plugin-trackplayback@1.0.5",
+      "/Users/colandy/Documents/project/windsor/web-admin"
+    ]
+  ],
+  "_from": "leaflet-plugin-trackplayback@1.0.5",
+  "_id": "leaflet-plugin-trackplayback@1.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-piVOSN4i27UYFRDrK0KtEogYfggTI/zCX0Oma3ylL1jiUgRWAtXqiCwQaWqzLYeILz5Xz1E5JO5bj/ql4TzR3w==",
+  "_location": "/leaflet-plugin-trackplayback",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "leaflet-plugin-trackplayback@1.0.5",
+    "name": "leaflet-plugin-trackplayback",
+    "escapedName": "leaflet-plugin-trackplayback",
+    "rawSpec": "1.0.5",
+    "saveSpec": null,
+    "fetchSpec": "1.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/leaflet-plugin-trackplayback/-/leaflet-plugin-trackplayback-1.0.5.tgz",
+  "_spec": "1.0.5",
+  "_where": "/Users/colandy/Documents/project/windsor/web-admin",
+  "author": {
+    "name": "linghuam"
+  },
+  "bugs": {
+    "url": "https://github.com/linghuam/Leaflet.TrackPlayback/issues"
+  },
+  "description": "track playback plugin based on leaflet",
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.5.3",
+    "eslint": "^5.6.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "directories": {
+    "example": "examples",
+    "lib": "lib"
+  },
+  "homepage": "https://github.com/linghuam/Leaflet.TrackPlayback#readme",
+  "keywords": [
+    "leaflet",
+    "track",
+    "playback",
+    "locus",
+    "canvas"
+  ],
+  "license": "MIT",
+  "main": "dist/leaflet.trackplayback.js",
+  "name": "leaflet-plugin-trackplayback",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linghuam/Leaflet.TrackPlayback.git"
+  },
+  "scripts": {
+    "build": "npm run lint && npm run webpack",
+    "lint": "eslint --ext .js src --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --config webpack.config.js"
+  },
+  "version": "1.0.5"
+}
