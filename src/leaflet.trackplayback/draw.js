@@ -34,8 +34,8 @@ export const Draw = L.Class.extend({
     imgUrl: '../../static/images/ship.png',
     width: 8,
     height: 18,
-    color: '#00f', // stroke color
-    fillColor: '#9FD12D'
+    color: 'rgb(0 0 0 / 0%)', // stroke color
+    fillColor: 'rgb(0 0 0 / 0%)'
   },
   toolTipOptions: {
     offset: [0, 0],
