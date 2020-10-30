@@ -1,21 +1,19 @@
 {
   "_args": [
     [
-      "leaflet-plugin-trackplayback@1.0.5",
+      "git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
       "/Users/colandy/Documents/project/windsor/web-admin"
     ]
   ],
   "_from": "git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
-  "_id": "leaflet-plugin-trackplayback@1.0.5",
+  "_id": "leaflet-plugin-trackplayback-windsor@git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git#55db2d4a98178850b264a8bed1cd16c5da7a9352",
   "_inBundle": false,
   "_integrity": "",
   "_location": "/leaflet-plugin-trackplayback-windsor",
   "_phantomChildren": {},
   "_requested": {
     "type": "git",
-    "raw": "leaflet-plugin-trackplayback-windsor@git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
-    "name": "leaflet-plugin-trackplayback-windsor",
-    "escapedName": "leaflet-plugin-trackplayback-windsor",
+    "raw": "git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
     "rawSpec": "git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
     "saveSpec": "git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
     "fetchSpec": "https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
@@ -25,7 +23,7 @@
     "/"
   ],
   "_resolved": "git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git#55db2d4a98178850b264a8bed1cd16c5da7a9352",
-  "_spec": "leaflet-plugin-trackplayback-windsor@git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
+  "_spec": "git+https://github.com/caohoang2911/leaflet-plugin-trackplayback-windsor.git",
   "_where": "/Users/colandy/Documents/project/windsor/web-admin",
   "author": {
     "name": "linghuam"
@@ -33,7 +31,6 @@
   "bugs": {
     "url": "https://github.com/linghuam/Leaflet.TrackPlayback/issues"
   },
-  "bundleDependencies": false,
   "deprecated": false,
   "description": "track playback plugin based on leaflet",
   "devDependencies": {
@@ -61,7 +58,7 @@
   ],
   "license": "MIT",
   "main": "dist/leaflet.trackplayback.js",
-  "name": "leaflet-plugin-trackplayback",
+  "name": "leaflet-plugin-trackplayback-windsor",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/linghuam/Leaflet.TrackPlayback.git"

@@ -8,6 +8,7 @@ import {
  * 绘制类
  * 完成轨迹线、轨迹点、目标物的绘制工作
  */
+var arrTarget =[];
 export const Draw = L.Class.extend({
 
   trackPointOptions: {
@@ -31,6 +32,8 @@ export const Draw = L.Class.extend({
   },
   targetOptions: {
     useImg: false,
+    flashDrag: false,
+    arrImage: [],
     imgUrl: '../../static/images/ship.png',
     width: 8,
     height: 18,
@@ -60,13 +63,35 @@ export const Draw = L.Class.extend({
 
     this._canvas = this._trackLayer.getContainer()
     this._ctx = this._canvas.getContext('2d')
-
+    this.dem =0;
     this._bufferTracks = []
 
     if (!this.trackPointOptions.useCanvas) {
       this._trackPointFeatureGroup = L.featureGroup([]).addTo(map)
     }
 
+    if(arrTarget.length == 0){
+      let promises=[];
+      for(let i=0;i<this.targetOptions.arrImage.length;i++){
+        const promise = new Promise((resolve => {
+          const img = new Image()
+          img.onload = () => {
+            // this[i]  = img
+            resolve(img);
+          }
+          img.onerror = () => {
+
+            throw new Error('img load error!')
+          }
+          img.src = this.targetOptions.arrImage[i]
+        }))
+        promises.push(promise);
+      }
+      Promise.all(promises).then((value)=>{
+        arrTarget = [...value];
+
+      })
+    }
     // 目标如果使用图片，先加载图片
     if (this.targetOptions.useImg) {
       const img = new Image()
@@ -76,6 +101,7 @@ export const Draw = L.Class.extend({
       img.onerror = () => {
         throw new Error('img load error!')
       }
+
       img.src = this.targetOptions.imgUrl
     }
   },
@@ -170,6 +196,7 @@ export const Draw = L.Class.extend({
   },
 
   _drawTrack: function (trackpoints) {
+
     // 画轨迹线
     if (this._showTrackLine) {
       this._drawTrackLine(trackpoints)
@@ -177,7 +204,7 @@ export const Draw = L.Class.extend({
     // 画船
     let targetPoint = trackpoints[trackpoints.length - 1]
     if (this.targetOptions.useImg && this._targetImg) {
-      this._drawShipImage(targetPoint)
+      this._drawShipImage(targetPoint,trackpoints)
     } else {
       this._drawShipCanvas(targetPoint)
     }
@@ -251,43 +278,57 @@ export const Draw = L.Class.extend({
   },
 
   _drawShipCanvas: function (trackpoint) {
-    let point = this._getLayerPoint(trackpoint)
-    let rotate = trackpoint.dir || 0
-    let w = this.targetOptions.width
-    let h = this.targetOptions.height
-    let dh = h / 3
-
-    this._ctx.save()
-    this._ctx.fillStyle = this.targetOptions.fillColor
-    this._ctx.strokeStyle = this.targetOptions.color
-    this._ctx.translate(point.x, point.y)
-    this._ctx.rotate((Math.PI / 180) * rotate)
-    this._ctx.beginPath()
-    this._ctx.moveTo(0, 0 - h / 2)
-    this._ctx.lineTo(0 - w / 2, 0 - h / 2 + dh)
-    this._ctx.lineTo(0 - w / 2, 0 + h / 2)
-    this._ctx.lineTo(0 + w / 2, 0 + h / 2)
-    this._ctx.lineTo(0 + w / 2, 0 - h / 2 + dh)
-    this._ctx.closePath()
-    this._ctx.fill()
-    this._ctx.stroke()
-    this._ctx.restore()
+    // let point = this._getLayerPoint(trackpoint)
+    // let rotate = trackpoint.dir || 0
+    // let w = this.targetOptions.width
+    // let h = this.targetOptions.height
+    // let dh = h / 3
+    //
+    // this._ctx.save()
+    // this._ctx.fillStyle = this.targetOptions.fillColor
+    // this._ctx.strokeStyle = this.targetOptions.color
+    // this._ctx.translate(point.x, point.y)
+    // this._ctx.rotate((Math.PI / 180) * rotate)
+    // this._ctx.beginPath()
+    // this._ctx.moveTo(0, 0 - h / 2)
+    // this._ctx.lineTo(0 - w / 2, 0 - h / 2 + dh)
+    // this._ctx.lineTo(0 - w / 2, 0 + h / 2)
+    // this._ctx.lineTo(0 + w / 2, 0 + h / 2)
+    // this._ctx.lineTo(0 + w / 2, 0 - h / 2 + dh)
+    // this._ctx.closePath()
+    // this._ctx.fill()
+    // this._ctx.stroke()
+    // this._ctx.restore()
   },
 
-  _drawShipImage: function (trackpoint) {
-    let point = this._getLayerPoint(trackpoint)
-    let dir = trackpoint.dir || 0
-    let width = this.targetOptions.width
-    let height = this.targetOptions.height
-    let offset = {
-      x: width / 2,
-      y: height / 2
+  _drawShipImage: function (trackpoint,trackpoints) {
+  if(!this.targetOptions.flashDrag)
+    {
+      if(trackpoint.isOrigin == true){
+        this.dem++;
+      }
+
+
+      let point = this._getLayerPoint(trackpoint)
+      let dir = trackpoint.dir || 0
+      let width = this.targetOptions.width
+      let height = this.targetOptions.height
+      let offset = {
+        x: width / 2,
+        y: height / 2
+      }
+
+      this._ctx.save()
+      this._ctx.translate(point.x, point.y)
+      this._ctx.rotate((Math.PI / 180) * dir)
+      this._ctx.drawImage(arrTarget[trackpoints[0].vt], 0 - offset.x, 0 - offset.y, width, height)
+      this._ctx.restore()
     }
-    this._ctx.save()
-    this._ctx.translate(point.x, point.y)
-    this._ctx.rotate((Math.PI / 180) * dir)
-    this._ctx.drawImage(this._targetImg, 0 - offset.x, 0 - offset.y, width, height)
-    this._ctx.restore()
+    // let latLng = L.latLng(trackpoints[i].lat, trackpoints[i].lng)
+    // let cricleMarker = L.circleMarker(latLng, this.trackPointOptions)
+    // cricleMarker.bindTooltip(this._getTooltipText(trackpoints[i]), this.toolTipOptions)
+    // this._trackPointFeatureGroup.addLayer(cricleMarker)
+
   },
 
   _getTooltipText: function (targetobj) {
